@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -15,7 +16,14 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+
+        if ($user && $user->role === 'admin') {
+            return $next($request);
+        }
+
+        return redirect()->route('dashboard');
     }
 }
 // tolong isi logika middleware nya

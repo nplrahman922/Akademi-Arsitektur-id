@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role'); // membuat role user dan admin
+            $table->string('role') -> default('user'); // membuat role user dan admin
             $table->date('validty-period') ->nullable(); // Tambahahan Untuk User memiliki expired date
             $table->rememberToken();
             $table->timestamps();
