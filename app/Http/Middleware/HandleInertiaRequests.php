@@ -44,7 +44,15 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
-                'user' => $request->user(),
+                // Modifikasi di sini:
+                // Cek dulu apakah user ada, baru ambil datanya.
+                // Jika tidak ada, kirim null.
+                'user' => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'name' => $request->user()->name,
+                    'email' => $request->user()->email,
+                    'role' => $request->user()->role,
+                ] : null,
             ],
             'ziggy' => [
                 ...(new Ziggy)->toArray(),

@@ -1,13 +1,18 @@
-// tolong buatkan logika untuk layout admin
-
 <script setup lang="ts">
+import AppLayout from '@/layouts/app/AdminSidebarLayout.vue';
+import type { BreadcrumbItemType } from '@/types';
+// layout untuk user
+interface Props {
+    breadcrumbs?: BreadcrumbItemType[];
+}
 
+withDefaults(defineProps<Props>(), {
+    breadcrumbs: () => [],
+});
 </script>
 
 <template>
-
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <slot />
+    </AppLayout>
 </template>
-
-<style scoped>
-
-</style>
